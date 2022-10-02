@@ -1,11 +1,17 @@
-
 pipeline{
-    node("mvn_3.8.6") {
-    timeout(unit: 'SECONDS', time: 5) {
-        stage("One"){
-            sleep 10
-            echo 'hello'
+    agent{label 'mvn_3.8.6'}
+        triggers { upstream(upstreamProjects: 'Starter', threshold: hudson.model.Result.SUCCESS) }
+    stages {
+        stage('scm') {
+            steps {
+                git 'https://github.com/SebiRaj/random-fork-java11-examples.git'
+            }
+        }
+        stage('build') {
+            steps {
+                sh '/usr/local/apache-maven-3.8.6/bin/mvn clean package'
+            }
         }
     }
-}
+
 }
