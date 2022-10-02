@@ -1,0 +1,17 @@
+node('mvn_3.8.6') {
+    properties(properties([pipelineTriggers([upstream('Starter, ')])]))
+    stage('SourceCode') {
+        // get the code from git repo on the branch java11-examples
+        git branch: 'sprint1_develop', url: 'https://github.com/SebiRaj/random-fork-java11-examples.git'
+    }
+
+    stage('Build the code') {
+        sh 'mvn clean package'
+    }
+
+    stage('Archiving and Test Results') {
+        junit '**/surefire-reports/*.xml'
+        archiveArtifacts artifacts: '**/*.war', followSymlinks: false
+    }
+
+}
