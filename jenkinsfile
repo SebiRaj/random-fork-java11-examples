@@ -1,7 +1,8 @@
 pipeline{
     agent{label 'mvn_3.8.6'}
-        triggers { upstream(upstreamProjects: 'Starter', threshold: hudson.model.Result.SUCCESS) }
-    stages {
+        ##triggers { upstream(upstreamProjects: 'Starter', threshold: hudson.model.Result.SUCCESS) }
+	  triggers {cron('* */3 * * 6-7')}    
+stages {
         stage('scm') {
             steps {
                 git 'https://github.com/SebiRaj/random-fork-java11-examples.git'
