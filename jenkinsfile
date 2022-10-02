@@ -8,6 +8,7 @@ stages {
         stage('scm') {
             steps {
                 git 'https://github.com/SebiRaj/random-fork-java11-examples.git'
+		input 'Do you want to continue?', submitter: 'devops'
             }
         }
         stage('build') {
