@@ -1,4 +1,4 @@
-
+##test
 node (mvn_3.8.6){
     properties(properties([pipelineTriggers([upstream('Starter, ')])]))
     stage('git'){
